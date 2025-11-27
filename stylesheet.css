@@ -1,0 +1,949 @@
+/* ==================== GOOGLE FONTS ===================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+/* ================= VARIABLE CSS ====================== */
+:root {
+
+    --header-height: 6rem;
+
+    /* ====== COLORS ========== */
+
+    /* color mode HSL(hue,saturation,lightness) */
+    --first-color: hsl(350, 98%, 64%);
+    --title-color: hsl(0, 0%, 100%);
+    --text-color: hsl(0, 0%, 77%);
+    --body-color: hsl(0, 0%, 6%);
+    --container-color: hsl(0, 0%, 10%);
+    --border-color: hsla(0, 0%, 100%, 0.1);
+    /* Set a reasonable opacity for border */
+
+    /* ====== FONTS AND TYPOGRAPHY ============ */
+    /* .5rem = 8px | 1rem = 16px */
+
+    --body-font: 'Poppins', sans-serif;
+    --second-font: 'Montserrat', sans-serif;
+    /* FIX: Added semicolon */
+
+    /* FIX: Corrected clamp syntax */
+    --big-font-size: clamp(2rem, 0.9265rem + 4.7059vw, 4.5rem);
+    --h1-font-size: clamp(1.75rem, 0.9265rem + 3.7647vw, 3.75rem);
+    --h2-font-size: 1.75rem;
+    --h3-font-size: 1.5rem;
+    --normal-font-size: 1.25rem;
+    --small-font-size: 1rem;
+    --smaller-font-size: 0.875rem;
+
+    /* ==== FONTS WEIGHT ==== */
+
+    --weight-300: 300;
+    --weight-400: 400;
+    --weight-500: 500;
+    --weight-600: 600;
+    --weight-700: 700;
+    --weight-900: 900;
+
+    /* ========== TRANSITION ========= */
+
+    --transition: cubic-bezier(0.05, 0, 0.201, 1);
+    /* FIX: Corrected typo in value (0,20.1,1) -> (0.201,1) */
+
+    /* ===== BORDER RADIUS ======= */
+    --radius: 0.5rem;
+
+    /* ========== Z INDEX============= */
+
+    --z--tooltip: 10;
+    --z-fixed: 100;
+}
+
+/* responsive typography */
+
+
+@media screen and (max-width: 992px) {
+    :root {
+        --header-height: 5rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: 0.9375rem;
+        --smaller-font-size: 0.813rem;
+        /* FIX: Corrected typo 'smaller-font-sizes' */
+    }
+
+}
+
+/* =================== BASE ============== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+input,
+textarea,
+body {
+    color: var(--text-color);
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    font-weight: var(--weight-300);
+}
+
+body {
+    background-color: var(--body-color);
+}
+
+
+h1,
+h2,
+h3 {
+    color: var(--title-color);
+    font-weight: var(--weight-700);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    line-height: 1.67em;
+}
+
+img {
+    max-width: 100%;
+}
+
+textarea,
+input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+}
+
+/* ========== REUSABLE CLASSES ============ */
+.container {
+    max-width: 1260px;
+    margin-inline: auto;
+    /* FIX: Removed background-color: var(--first-color); from here */
+    padding-inline: 0.75rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.75rem;
+}
+
+.section {
+    padding-block: 8rem;
+}
+
+.section__title {
+    font-size: var(--h1-font-size);
+    margin-bottom: 1rem;
+}
+
+/* FIX: Corrected syntax for text-align centering logic */
+.section__description {
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: 3.75rem;
+}
+
+/* If you want the title and description centered by default: */
+.section__title,
+.section__description {
+    text-align: center;
+}
+
+/* Use a different block for exceptions if needed: */
+.about .section__title,
+.contact .section__title {
+    text-align: left;
+}
+
+.btn {
+    display: inline-block;
+    color: var(--title-color);
+    /* FIX: Changed button text color to title-color for visibility */
+    background-color: var(--first-color);
+    border: 2px solid var(--first-color);
+    /* FIX: Corrected '--first-color' to 'var(--first-color)' */
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius);
+    font-size: var(--small-font-size);
+    font-weight: var(--weight-500);
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s var(--transition);
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: var(--first-color);
+}
+
+/* ================== HEADER AND NAV =============== */
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-fixed);
+}
+
+.nav,
+.nav__list,
+.nav__socials {
+    display: flex;
+}
+
+.nav {
+    height: calc(var(--header-height) + 1.5rem);
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 3.5rem;
+}
+
+.nav__logo {
+    color: var(--title-color);
+    font-size: 2.3rem;
+    font-weight: var(--weight-700);
+}
+
+.nav__logo span {
+    /* FIX: Targeted the span inside the logo */
+    color: var(--first-color);
+}
+
+.nav__list {
+    column-gap: 2rem;
+}
+
+.nav__link,
+.nav__socials-links {
+    /* FIX: Corrected 'nav__socials-link' to 'nav__socials-links' */
+    font-size: var(--small-font-size);
+    color: var(--title-color);
+    transition: all 0.3s var(--transition);
+}
+
+.nav__link {
+    font-weight: var(--weight-500);
+
+}
+
+.nav__socials {
+    /* FIX: Corrected 'nav_-socials' */
+    column-gap: 1.5rem;
+    margin-left: auto;
+}
+
+.nav__socials-links:hover {
+    color: var(--first-color);
+    transform: translateY(-0.25rem);
+}
+
+.nav__links-btn {
+    /* FIX: Corrected 'nav_-link-btn' */
+    font-size: var(--small-font-size);
+    background-color: transparent;
+    border-color: var(--border-color);
+    padding: 0.65rem 1.25rem;
+}
+
+.nav__links-btn:hover {
+    /* FIX: Corrected 'nav__link-btn' */
+    background-color: var(--first-color);
+    border-color: var(--first-color);
+    color: var(--title-color);
+}
+
+
+.nav__toggle,
+.nav__close {
+    /* FIX: Added missing period to .nav__close */
+    display: none;
+}
+
+/* Active Link */
+.active-link,
+.nav__link:hover {
+    /* FIX: Corrected 'active__link' to 'active-link' for consistency with HTML */
+    color: var(--first-color);
+}
+
+
+/* Change Background Header */
+.scroll-header {
+    position: fixed;
+    background-color: var(--container-color);
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.25);
+    animation: slide-down 0.7s;
+}
+
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.scroll-header .nav {
+    height: var(--header-height);
+}
+
+/* ====================== HOME ============ */
+
+.home {
+    padding-block: 16rem 9rem;
+
+}
+
+.home__container {
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+}
+
+.home__subtitle {
+    /* FIX: Corrected typo 'home__substitle' */
+    font-size: var(--small-font-size);
+    font-weight: var(--weight-400);
+    letter-spacing: 0.25rem;
+    margin-bottom: 1.25rem;
+    display: block;
+}
+
+.home__title {
+    font-family: var(--second-font);
+    font-size: var(--big-font-size);
+    font-weight: var(--weight-900);
+}
+
+.home__title span {
+    color: var(--first-color);
+}
+
+.home__img {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    border: 0.75rem solid var(--container-color);
+    margin-left: auto;
+
+}
+
+/* =================== ABOUT ======================= */
+.about {
+    background-color: var(--container-color);
+}
+
+.about__container {
+    grid-template-columns: 5fr 7fr;
+    align-items: center;
+    column-gap: 4rem;
+}
+
+.about__img {
+    border-radius: var(--radius);
+}
+
+.about__description {
+    margin-bottom: 2rem;
+}
+
+.tabs__btns {
+    display: flex;
+    column-gap: 2.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.tabs__btn,
+.tabs__description span:first-child {
+    font-weight: var(--weight-500);
+}
+
+.tabs__btn {
+    cursor: pointer;
+    color: var(--title-color);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.tabs__btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    height: 2px;
+    background-color: var(--text-color);
+    transition: all 0.3s var(--transition);
+
+}
+
+.tabs__data {
+    row-gap: 1rem;
+}
+
+.tabs__description {
+    display: block;
+}
+
+/* Active tab */
+
+.tabs__btn.tab__active {
+    color: var(--first-color);
+}
+
+.tabs__btn.tab__active::after {
+    /* FIX: Corrected class name and target to fix the active tab indicator */
+    background-color: var(--first-color);
+    width: 100%;
+}
+
+.tabs__item[data-content] {
+    /* FIX: Corrected 'tabs__items' to 'tabs__item' */
+    display: none;
+}
+
+.tab__active[data-content] {
+    display: block;
+}
+
+/*=============== SERVICES ===============*/
+
+.services__container {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.services__items {
+    background-color: var(--container-color);
+    padding: 3.5rem 2.5rem;
+    border-radius: var(--radius);
+}
+
+.services__icons {
+    /* FIX: Added missing class '.services__icons' to apply styles */
+    color: var(--first-color);
+    font-size: 3.25rem;
+    line-height: 1;
+}
+
+.services__titles {
+    /* FIX: Corrected typo 'services__title' to 'services__titles' */
+    font-size: var(--h3-font-size);
+    font-weight: var(--weight-500);
+    margin-block: 1.75rem 1.25rem;
+}
+
+.services__description {
+    font-weight: var(--weight-400);
+}
+
+
+/*=============== PORTFOLIO ===============*/
+
+.portfolio {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    background-color: var(--container-color);
+}
+
+.portfolio__container {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.portfolio__item {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    position: relative;
+    cursor: pointer;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.portfolio__item::after,
+.portfolio__data {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    position: absolute;
+    transition: all 0.65s var(--transition);
+}
+
+.portfolio__item::after {
+    /* FIX: This block was using --body-color, changed to --first-color for the red/pink shade */
+    content: '';
+    inset: 0;
+    background-image: linear-gradient(180deg, transparent, var(--first-color));
+    opacity: 0;
+}
+
+.portfolio__img {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    width: 100%;
+    vertical-align: middle;
+    transition: all 1s var(--transition);
+
+}
+
+.portfolio__data {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    inset-inline: 2rem;
+    bottom: 1.25rem;
+    text-align: center;
+    z-index: var(--z--tooltip);
+    transform: translateY(1.5rem);
+    /* Set initial state for hover transition */
+}
+
+.portfolio__subtitle,
+.portfolio__description {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    color: var(--title-color);
+    opacity: 0.7;
+}
+
+.portfolio__subtitle {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    font-size: var(--small-font-size);
+    margin-bottom: .25rem;
+}
+
+.portfolio__title {
+    /* FIX: Corrected typo 'protfolio__titile' to 'portfolio__title' */
+    font-size: var(--h2-font-size);
+    font-weight: var(--weight-600);
+    margin-bottom: 0.75rem;
+}
+
+.portfolio__description {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    font-weight: var(--weight-400);
+    display: none;
+}
+
+/* Portfolio hover */
+/* NOTE: The next block was causing issues, as it used the older, non-standard class name 'protfolio__items' */
+
+.portfolio__item:hover::after {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    opacity: 1;
+}
+
+.portfolio__item:hover .portfolio__img {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    transform: scale(1.1);
+}
+
+.portfolio__item:hover .portfolio__description {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    display: block;
+}
+
+.portfolio__item:hover .portfolio__data {
+    /* FIX: Corrected typo 'protfolio' to 'portfolio' */
+    transform: translateY(0);
+    /* Corrected hover state to move up */
+
+}
+
+/*=============== CONTACT ===============*/
+
+.contact__container {
+    /* FIX: Corrected syntax in grid-template-columns */
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    column-gap: 4rem;
+
+}
+
+.contact__description,
+.contact__input {
+    font-weight: var(--weight-400);
+}
+
+ .contact__description {
+    /* Target the first description in the content block */
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    font-weight: var(--weight-400);
+}
+
+.contact__description a {
+    /* Target the email/phone links */
+    color: var(--first-color);
+    font-weight: var(--weight-500);
+}
+
+.contact__form {
+    position: relative;
+}
+
+.contact__input {
+    border: 2px solid var(--border-color);
+    padding: 0.8rem 1.25rem;
+    width: 100%;
+    border-radius: var(--radius);
+    font-size: var(--small-font-size);
+    margin-bottom: 1.25rem;
+}
+
+.textarea {
+    height: 120px;
+    resize: none;
+}
+
+.error__message {
+
+    position: absolute;
+    bottom: -12%;
+    left: 0;
+    font-size: var(--small-font-size);
+    font-weight: var(--weight-400);
+}
+
+.color-first {
+    /* For success message */
+    color: var(--first-color);
+}
+
+/*=============== FOOTER ===============*/
+.footer {
+    background-color: var(--container-color);
+    padding-block: 2rem;
+}
+
+.footer__container {
+
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.footer__logo {
+    color: var(--title-color);
+    font-size: 2.5rem;
+    font-weight: var(--weight-700);
+}
+
+.footer__logo span {
+    color: var(--first-color);
+}
+
+.footer__socials-links {
+    /* FIX: Corrected selector to link for the circle styling */
+    color: var(--text-color);
+    font-size: var(--small-font-size);
+    border: 2px solid var(--text-color);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: all 0.3s var(--transition);
+}
+
+.footer__socials-links:hover {
+    background-color: var(--first-color);
+    border-color: var(--first-color);
+    /* FIX: Changed border-color on hover for better effect */
+    color: var(--title-color);
+}
+
+.footer__copyright {
+    font-size: var(--small-font-size);
+    font-weight: var(--weight-400);
+    justify-self: flex-end;
+}
+
+/*=============== SCROLL UP ===============*/
+.scrollUp {
+    /* FIX: Corrected class name 'scrollup' to 'scrollUp' for consistency with HTML id/class */
+    position: fixed;
+    right: 1rem;
+    bottom: -100%;
+    width: 50px;
+    height: 50px;
+    background-color: var(--container-color);
+    /* FIX: Added background color */
+    border-radius: var(--radius);
+    /* FIX: Corrected 'var(--title-color)' to 'var(--radius)' */
+    display: grid;
+    place-items: center;
+    z-index: var(--z-fixed);
+    transition: all 0.4s var(--transition);
+}
+
+.scrollup__icons {
+    color: var(--first-color);
+    font-size: 2.25rem;
+    line-height: 1;
+
+}
+
+/* Show scrollup */
+.show-scroll {
+    bottom: 3rem;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For large devices */
+@media screen and (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .nav__btns {
+        display: none;
+    }
+
+    .home {
+        padding-top: 11rem;
+    }
+
+    .home__container,
+    .about__container {
+        grid-template-columns: 1fr;
+    }
+
+    .home__container {
+        row-gap: 2rem;
+    }
+
+    .home__content {
+        order: 1;
+    }
+
+    .home__img,
+    .about__img {
+        /* FIX: Corrected incorrect semicolon selector */
+        margin-inline: auto;
+    }
+
+    .home__img {
+        border: 0.5rem solid var(--container-color);
+        width: 380px;
+        height: 380px;
+    }
+
+    .about__container {
+        /* FIX: Corrected typo 'about_-container' */
+        row-gap: 2.5rem;
+    }
+
+    .services__container,
+    .portfolio__container {
+        /* FIX: Corrected typo 'protfolio' and syntax 'repeat(2.1fr)' */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact__container {
+        column-gap: 2rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .nav {
+        height: var(--header-height);
+        column-gap: 1.25rem;
+    }
+
+    .nav__logo {
+        font-size: 2rem;
+    }
+
+    .nav__btns,
+    .nav__toggle,
+    .nav__close {
+        display: block;
+    }
+
+    .nav__links-btn {
+        /* FIX: Corrected class name */
+        display: block;
+    }
+
+    .nav__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Hidden by default */
+        width: 60vw;
+        height: 100vh;
+        background-color: var(--container-color);
+        padding: 3.5rem;
+        transition: all 0.8s var(--transition);
+    }
+
+    .show-menu {
+        right: 0;
+    }
+
+    .nav__list {
+        flex-direction: column;
+        row-gap: 1.125rem;
+    }
+
+    .nav__close {
+        font-size: 1.5rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+
+    .nav__socials {
+        column-gap: 1rem;
+    }
+
+    .nav__toggle {
+        /* FIX: Corrected typo 'nav__toogle' */
+        font-size: var(--h2-font-size);
+    }
+
+    .nav__close,
+    .nav__toggle {
+        cursor: pointer;
+    }
+
+    .home {
+        padding-top: 9rem;
+    }
+
+    .home__img {
+        width: 320px;
+        height: 320px;
+    }
+
+    .services__icons {
+        font-size: 2.5rem;
+    }
+
+    .services__titles {
+        margin-block: 1.5rem 1rem;
+    }
+
+    .contact__container {
+        /* FIX: Corrected contact styles for mobile layout */
+        grid-template-columns: 1fr;
+        row-gap: 2rem;
+    }
+
+    .contact__content {
+        order: 1;
+    }
+
+    .contact__content .contact__description {
+        /* Target the first description in the content block */
+        margin-bottom: 2rem;
+    }
+
+    .footer__socials-links {
+        /* FIX: Corrected selector to links */
+        font-size: var(--small-font-size);
+        width: 36px;
+        height: 36px;
+    }
+
+    .scrollUp {
+        /* FIX: Corrected class name */
+        width: 42px;
+        height: 42px;
+    }
+
+    .scrollup__icons {
+        font-size: 2rem;
+    }
+}
+
+
+/* For medium devices */
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 540px;
+    }
+
+    .home__img {
+        width: 280px;
+        height: 280px;
+    }
+
+    .tabs__btns {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
+        column-gap: 1.5rem;
+    }
+
+    .services__container,
+    .portfolio__container {
+        
+        grid-template-columns: 1fr;
+    }
+
+    .footer__container {
+       
+        grid-template-columns: 1fr;
+        text-align: center;
+        row-gap: 1.5rem;
+    }
+
+    .footer__copyright {
+        justify-self: center;
+        
+    }
+
+}
+
+
+@media screen and (max-width: 576px) {
+    .nav__menu {
+        width: 100vw;
+        padding: 2.75rem;
+
+    }
+
+    .home__img {
+        width: 260px;
+        height: 260px;
+    }
+
+    .services__items {
+        padding: 2rem 1.5rem;
+
+    }
+}
+
+/* For small devices */
+@media screen and (max-width: 350px) {
+    .home__img {
+        width: 240px;
+        height: 240px;
+    }
+
+    .tabs__description span:last-child {
+        display: inline;
+    }
+
+    .portfolio__data {
+        /* FIX: Corrected typo 'protfolio' */
+        inset-inline: 1rem;
+        bottom: 1rem;
+    }
+
+}
